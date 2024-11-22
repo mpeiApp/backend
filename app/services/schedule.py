@@ -34,7 +34,6 @@ async def get_group_id(group_name: str) -> dict:
 
 async def fetch_and_form_schedule(group_id, date_start, date_end):
     response = await get_schedule(group_id, date_start, date_end)
-    print(response)
     if response['message'] == "ok":
         data = await form_schedule(response['data'])
         return {

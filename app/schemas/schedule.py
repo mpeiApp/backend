@@ -7,15 +7,28 @@ class GroupIDResponseSchema(BaseModel):
     data: int
 
 
+class LessonAddSchema(BaseModel):
+    discipline: str
+    auditorium: str
+    date: str
+    dayOfWeek: int
+    beginLesson: str
+    endLesson: str
+    kindOfWork: str
+    lecturer: str
+    group_id: str
+
+
 class LessonSchema(BaseModel):
     discipline: str
     auditorium: str
     date: str
     dayOfWeek: int
-    time_begin: str
-    time_end: str
+    beginLesson: str
+    endLesson: str
     kindOfWork: str
     lecturer: str
+
 
 
 class ScheduleResponseSchema(BaseModel):
@@ -23,7 +36,7 @@ class ScheduleResponseSchema(BaseModel):
     data: Union[Dict[str, List[LessonSchema]],str]
 
 
-class ScheduleRequestModel(BaseModel):
+class ScheduleRequestSchema(BaseModel):
     group_id: str
     date_start: datetime = Field(..., description="Дата начала в формате yyyy-mm-dd")
     date_end: datetime = Field(..., description="Дата окончания в формате yyyy-mm-dd")

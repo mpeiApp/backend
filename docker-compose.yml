@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+
+  fastapi:
+    build:
+      context: .
+    container_name: fastapi
+    restart: always
+    depends_on:
+      - mongo
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017/
+      - DATABASE_NAME=mpei_db
+      - TIME_PARSE_SCHEDULE=10
+      - PYTHONUNBUFFERED=1
+    expose:
+      - "8000"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    depends_on:
+      - fastapi
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+volumes:
+  mongo-data:

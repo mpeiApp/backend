@@ -1,5 +1,6 @@
 import httpx
 
+
 class Lesson:
     def __init__(self, discipline, auditorium, date, dayOfWeek, time_begin, time_end, kindOfWork, lecturer):
         self.discipline = discipline
@@ -41,6 +42,11 @@ async def get_schedule(group_id, date_start, date_end):
                     'data': responseData
                 }
             else:
+                if 'error' in responseData:
+                    return {
+                        'message': "not ok",
+                        'data': responseData['error']
+                    }
                 return {
                     'message': "not ok",
                     'data': "empty schedule",
@@ -64,7 +70,7 @@ async def form_schedule(data):
             lesson['beginLesson'],
             lesson['endLesson'],
             lesson['kindOfWork'],
-            lesson['lecturer']
+            lesson['lecturer'],
         )
 
         if lesson['date'] not in weekSchedule:
@@ -73,5 +79,4 @@ async def form_schedule(data):
             weekSchedule[lesson['date']].append(current_lesson.to_dict())
 
         lessons_class.append(current_lesson.to_dict())
-        # print(current_lesson)
     return weekSchedule
