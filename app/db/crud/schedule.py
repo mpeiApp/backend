@@ -6,9 +6,6 @@ from app.schemas.schedule import LessonAddSchema
 from app.services.schedule import fetch_and_form_schedule
 
 
-async def add_schedule_group(lessons: List[LessonAddSchema]) -> InsertManyResult:
-    ...
-
 async def add_lesson(lesson: LessonAddSchema, collection) -> InsertOneResult:
     filter = {
         'discipline': lesson['discipline'],
@@ -31,3 +28,16 @@ async def add_schedule(schedule_data: Dict[str, Any], group_id: str, collection)
             lesson['group_id'] = group_id
             result = await add_lesson(lesson, collection)
             print(result)
+
+async def get_week_schedule(group_id: str, start_date: str, end_date: str) -> List[Dict[str, Any]]:
+    query = {
+        "group_id": group_id,
+        "date": {
+            "$gte": start_date,
+            "$lte": end_date
+        }
+    }
+    collection = await get_schedule_collection()
+    cursor = collection.find(query)
+    results = await cursor.to_list(length=None)
+    return results
