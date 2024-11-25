@@ -8,14 +8,14 @@ router = APIRouter()
 async def root(model: UserModel):
     try:
         result = await login_to_bars(model.username, model.password)
-        return result
-        # return {
-        #     "message": "OK",
-        #     "data": result
-        # }
+        # return result
+        return {
+            "message": "OK",
+            "data": result
+        }
     except Exception as e:
-        return {"error": str(e)}
-        # return {
-        #     "message": f"NOT OK",
-        #     "data": str(e)
-        # }
+        # return {"error": str(e)}
+        return {
+            "message": f"NOT OK",
+            "data": str(e)
+        }

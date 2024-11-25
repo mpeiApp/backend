@@ -8,10 +8,11 @@ class UserModel(BaseModel):
 
 
 class StudentInfo(BaseModel):
+    login: str
     name: str
     surname: str
     groupNumber: str
 
-class LoginResponse(BaseModel):
+class PersonGradesInfo(BaseModel):
     studentInfo: StudentInfo
     subjects: List[Subject] = Field(default_factory=list)

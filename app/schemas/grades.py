@@ -1,16 +1,16 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
-from datetime import date
+from datetime import datetime
 
 
 class Grade(BaseModel):
     name: str
     weight: int
     weekNumber: int
-    dateStart: Optional[date]
-    dateEnd: date
+    dateStart: Optional[datetime]
+    dateEnd: datetime
     mark: Optional[int]
-    markDate: Optional[date]
+    markDate: Optional[datetime]
 
 
 class Subject(BaseModel):

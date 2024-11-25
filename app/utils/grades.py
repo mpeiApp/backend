@@ -4,9 +4,15 @@ from datetime import datetime
 
 # Parse student info
 def get_student_info(soup):
+    login = ""
+    for a_tag in soup.find_all('a', href=True):
+        if 'mailto:' in a_tag['href']:
+            login = a_tag['href'].replace('mailto:', '').strip().split('@')[0]
+            break
     student_info_text = soup.find('span', class_='fw-bold').text.strip()
     surname, name, middle_name, *_, group_number = student_info_text.split(' ')
     student_info = StudentInfo(
+        login=login,
         name=name,
         surname=surname,
         groupNumber=group_number
