@@ -22,8 +22,6 @@ services:
       - PYTHONUNBUFFERED=1
     expose:
       - "8000"
-    networks:
-      - mynetwork
 
   nginx:
     image: nginx:latest
@@ -35,12 +33,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    networks:
-      - mynetwork
 
 volumes:
   mongo-data:
 
-networks:
-  mynetwork:
-    driver: bridge
