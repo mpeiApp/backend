@@ -2,7 +2,7 @@ import httpx
 
 
 class Lesson:
-    def __init__(self, discipline, auditorium, date, dayOfWeek, time_begin, time_end, kindOfWork, lecturer):
+    def __init__(self, discipline, auditorium, date, dayOfWeek, time_begin, time_end, kindOfWork, lecturer, lessonNumber):
         self.discipline = discipline
         self.auditorium = auditorium
         self.date = date
@@ -11,6 +11,7 @@ class Lesson:
         self.time_end = time_end
         self.kindOfWork = kindOfWork
         self.lecturer = lecturer
+        self.lessonNumer = lessonNumber
 
     def __str__(self):
         return f"{self.time_begin} - {self.time_end}\n" \
@@ -27,7 +28,8 @@ class Lesson:
             "time_begin": self.time_begin,
             "time_end": self.time_end,
             "kindOfWork": self.kindOfWork,
-            "lecturer": self.lecturer
+            "lecturer": self.lecturer,
+            "lessonNumber": self.lessonNumer
         }
 
 async def get_schedule(group_id, date_start, date_end):
@@ -71,6 +73,7 @@ async def form_schedule(data):
             lesson['endLesson'],
             lesson['kindOfWork'],
             lesson['lecturer'],
+            lesson['lessonNumberStart']
         )
 
         if lesson['date'] not in weekSchedule:

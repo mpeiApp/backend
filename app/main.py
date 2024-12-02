@@ -18,7 +18,8 @@ async def lifespan(app: FastAPI):
     print(settings.DATABASE_URL, settings.DATABASE_NAME)
     await init_db()
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(schedule_job, 'interval', seconds=int(settings.TIME_PARSE_SCHEDULE), max_instances=10)
+    # await schedule_job()
+    scheduler.add_job(schedule_job, 'interval', hours=int(settings.TIME_PARSE_SCHEDULE), max_instances=10)
     scheduler.start()
     yield
     if client:

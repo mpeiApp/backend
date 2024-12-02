@@ -15,20 +15,27 @@ async def get_group_id_by_name(group_name: str):
     raise HTTPException(status_code=302, detail=response['data'])
 
 
-@router.get("/by_id", response_model=ScheduleResponseSchema)
+@router.get("/by_id")
 async def get_schedule_by_group_id(request: ScheduleRequestSchema = Depends()):
     schedule_response = await fetch_and_form_schedule(request.group_id, request.date_start, request.date_end)
     return ScheduleResponseSchema(message=schedule_response['message'], data=schedule_response['data'])
 
 
-@router.post("/by_timestamp")
+@router.get("/by_timestamp")
 async def get_schedule_by_timespan(group_id: str, start_date: str, end_date: str):
     response = await get_week_schedule(group_id, start_date, end_date)
     result = {}
     for el in response:
-        el['_id'] = str(el['_id'])
+        el['id'] = str(el['_id'])
+        del el['_id']
         if el['date'] in result:
             result[el['date']].append(el)
         else:
             result[el['date']] = [el]
-    return result
+    print(result)
+
+
+    return {
+        'message': 'ok',
+        'data': result
+    }
