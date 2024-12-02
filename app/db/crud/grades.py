@@ -27,3 +27,13 @@ async def add_person_grades(grade_data: PersonGradesInfo) -> UpdateResult:
         upsert=True
     )
     return result
+
+async def get_person_grades(login: str) -> Dict[str, Any]:
+    collection = await get_grades_collection()
+
+    result = await collection.find_one({"studentInfo.login": login})
+    if result:
+        result["_id"] = str(result["_id"])
+        return result
+    else:
+        return None

@@ -62,11 +62,11 @@ def get_grade_info(cols):
     week_number, date_range = date_conduct.split(" ")
     if len(date_range[1:-1].split("-")) == 2:
         date_start, date_end = date_range[1:-1].split("-")
-        date_start = datetime.strptime(date_start, "%d.%m.%y").date()
-        date_end = datetime.strptime(date_end, "%d.%m.%y").date()
+        date_start = date_start
+        date_end = date_end
     else:
         date_end = date_range[1:-1]
-        date_end = datetime.strptime(date_end, "%d.%m.%y").date()
+        date_end = date_end
         date_start = None
     grade_date = cols[3].get_text(strip=True)
     mark = None
@@ -74,7 +74,6 @@ def get_grade_info(cols):
     if grade_date:
         mark = grade_date.split(" ")[0]
         mark_date = grade_date.split(" ")[-1][1:-1]
-        mark_date = datetime.strptime(mark_date, "%d.%m.%y").date()
 
     grade = Grade(
         name=name,
