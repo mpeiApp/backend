@@ -27,3 +27,6 @@ async def get_user_collection():
 
 async def get_schedule_collection():
     return get_collection("schedule")
+
+async def get_grades_collection():
+    return get_collection("grades")
