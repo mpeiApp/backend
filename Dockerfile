@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 WORKDIR .
 
-COPY app/requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir --timeout=120 -r requirements.txt
 
 COPY app app

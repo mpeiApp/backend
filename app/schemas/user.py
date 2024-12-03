@@ -2,10 +2,9 @@ from pydantic import BaseModel, Field
 from typing import List
 from ..schemas.grades import Subject
 
-class UserModel(BaseModel):
+class LoginModel(BaseModel):
     username: str
     password: str
-
 
 class StudentInfo(BaseModel):
     login: str

@@ -8,6 +8,7 @@ from app.db.database import init_db, client
 
 from app.api.endpoints.user import router as user_router
 from app.api.endpoints.grades import router as grades_router
+from app.api.endpoints.group import router as group_router
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -42,3 +43,4 @@ app.include_router(schedule_router, prefix="/schedule")
 
 app.include_router(user_router, prefix="/user")
 app.include_router(grades_router, prefix="/grades")
+app.include_router(group_router, prefix="/group")

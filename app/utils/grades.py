@@ -3,7 +3,7 @@ from ..schemas.user import StudentInfo
 from datetime import datetime
 
 # Parse student info
-def get_student_info(soup):
+def parse_student_info(soup):
     login = ""
     for a_tag in soup.find_all('a', href=True):
         if 'mailto:' in a_tag['href']:
@@ -21,7 +21,7 @@ def get_student_info(soup):
 
 
 # Parse subjects
-def get_subject_info(soup):
+def parse_subject_info(soup):
     subjects = []
     subject_elements = soup.find_all('div', {'data-bs-toggle': 'collapse'})
     for subject_html in subject_elements:
@@ -47,7 +47,7 @@ def get_subject_info(soup):
                 if len(cols) < 4:
                     continue
 
-                grade = get_grade_info(cols)
+                grade = parse_grade_info(cols)
                 subjects[i].gradeList.append(grade)
             i += 1
 
@@ -55,7 +55,7 @@ def get_subject_info(soup):
 
 
 # Parse grade
-def get_grade_info(cols):
+def parse_grade_info(cols):
     name = cols[0].get_text(strip=True).split("(критерии)")[0]
     weight = cols[1].get_text(strip=True)
     date_conduct = cols[2].get_text(strip=True)

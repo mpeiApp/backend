@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from ..utils.grades import get_student_info, get_subject_info
+from ..utils.grades import parse_student_info, parse_subject_info
 from ..schemas.user import PersonGradesInfo
 
 async def get_html(client, redirect_url):
@@ -10,8 +10,8 @@ async def get_html(client, redirect_url):
 
 def get_bars_data(html_content):
     soup = BeautifulSoup(html_content, 'html.parser')
-    student_info = get_student_info(soup)
-    subjects = get_subject_info(soup)
+    student_info = parse_student_info(soup)
+    subjects = parse_subject_info(soup)
 
     # Create final response model
     result = PersonGradesInfo(
@@ -20,3 +20,8 @@ def get_bars_data(html_content):
     )
 
     return result
+
+def get_student_info(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    student_info = parse_student_info(soup)
+    return student_info

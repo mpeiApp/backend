@@ -24,6 +24,8 @@ def get_collection(collection_name: str):
 async def get_user_collection():
     return get_collection("users")
 
+async def get_group_collection():
+    return get_collection("group")
 
 async def get_schedule_collection():
     return get_collection("schedule")
